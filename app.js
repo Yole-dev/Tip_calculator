@@ -10,7 +10,17 @@ const totalTip = document.querySelector('.total_tip');
 const resetBtn = document.querySelector('.reset_btn');
 const error = document.querySelector('.error_message');
 
+
 let tip;
+
+const tipCalc = function() {
+    const calcTip = tip/numberOfPeople.value;
+
+    tipPerPerson.innerHTML = `$${calcTip.toFixed(2)}`;
+    totalTip.innerHTML = `$${((bill.value/numberOfPeople.value) + calcTip).toFixed(2)}`;
+
+    resetBtn.style.opacity = 1;
+};
 
 percentage.addEventListener('click', function(e){
     const clicked = e.target.classList.contains('perc'); 
@@ -34,10 +44,7 @@ percentage.addEventListener('click', function(e){
             numberOfPeople.style.border = `solid 1px red`;
             error.style.opacity = 1;
     }else if(numberOfPeople.value > '0') {
-        const calcTip = tip/numberOfPeople.value;
-
-        tipPerPerson.innerHTML = `$${calcTip.toFixed(2)}`;
-        totalTip.innerHTML = `$${((bill.value/numberOfPeople.value) + calcTip).toFixed(2)}`;
+        tipCalc();
     };
 
 });
@@ -53,11 +60,14 @@ customPercentage.addEventListener('input', function(e) {
     if(input) {
         if(customValue.length === 1) {
             tip = +((bill.value * customValue.padStart(4, '0.0')).toFixed(2));
-            console.log(tip);
         } else if (customValue.length > 1) {
             tip = +((bill.value * customValue.padStart(4, '0.')).toFixed(2));
         }
     }
+
+    percent.forEach (perc => {
+        if(perc.classList.contains('perc_active'))  perc.classList.remove('perc_active');
+    });
 
     if(customValue === '') return;
 
@@ -65,10 +75,7 @@ customPercentage.addEventListener('input', function(e) {
         numberOfPeople.style.border = `solid 1px red`;
         error.style.opacity = 1;
     }else if(numberOfPeople.value > '0') {
-        const calcTip = tip/numberOfPeople.value;
-
-        tipPerPerson.innerHTML = `$${calcTip.toFixed(2)}`;
-        totalTip.innerHTML = `$${((bill.value/numberOfPeople.value) + calcTip).toFixed(2)}`;
+        tipCalc();
     }
 });
 
@@ -95,4 +102,5 @@ resetBtn.addEventListener('click', function(e) {
 
     tipPerPerson.innerHTML = `$0.00`;
     totalTip.innerHTML = `$0.00`;
+    resetBtn.style.opacity = 0.3;
 })
