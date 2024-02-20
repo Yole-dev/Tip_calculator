@@ -83,6 +83,7 @@ numberOfPeople.addEventListener('input', function(){
     if(numberOfPeople.value > '0') {
         numberOfPeople.style.border = `none`;
         error.style.opacity = 0;
+        tipCalc();
     }
 });
 
