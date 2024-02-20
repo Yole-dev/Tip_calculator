@@ -10,6 +10,7 @@ const totalTip = document.querySelector('.total_tip');
 const resetBtn = document.querySelector('.reset_btn');
 const error = document.querySelector('.error_message');
 
+let tip;
 
 percentage.addEventListener('click', function(e){
     const clicked = e.target.classList.contains('perc'); 
@@ -17,7 +18,6 @@ percentage.addEventListener('click', function(e){
     if(!clicked) return;
     //active class        
      const active = e.target.classList.add('perc_active');
-     let tip;
 
     if(clicked) {
 
@@ -27,21 +27,21 @@ percentage.addEventListener('click', function(e){
         } else if(e.target.innerHTML.length > 2) {
             tip = +(bill.value * e.target.innerHTML.slice(0, 2).padStart(4, '0.')).toFixed(2);
             active;
-        }
+        };     
     };
 
     if(numberOfPeople.value === '0' || numberOfPeople.value === '') {
-        numberOfPeople.style.border = `solid 1px red`;
-        error.style.opacity = 1;
-        return;
-    }
+            numberOfPeople.style.border = `solid 1px red`;
+            error.style.opacity = 1;
+    }else if(numberOfPeople.value > '0') {
+        const calcTip = tip/numberOfPeople.value;
 
-    const calcTip = tip/numberOfPeople.value;
-
-    tipPerPerson.innerHTML = `$${calcTip.toFixed(2)}`;
-    totalTip.innerHTML = `$${((bill.value/numberOfPeople.value) + calcTip).toFixed(2)}`;
+        tipPerPerson.innerHTML = `$${calcTip.toFixed(2)}`;
+        totalTip.innerHTML = `$${((bill.value/numberOfPeople.value) + calcTip).toFixed(2)}`;
+    };
 
 });
+
 
 
 
@@ -49,8 +49,6 @@ customPercentage.addEventListener('input', function(e) {
     const input = e.target;
     const customValue = input.value;
     console.log(customValue);
-
-    let tip;
 
     if(input) {
         if(customValue.length === 1) {
@@ -66,14 +64,19 @@ customPercentage.addEventListener('input', function(e) {
     if(numberOfPeople.value === '0' || numberOfPeople.value === '') {
         numberOfPeople.style.border = `solid 1px red`;
         error.style.opacity = 1;
-        return;
+    }else if(numberOfPeople.value > '0') {
+        const calcTip = tip/numberOfPeople.value;
+
+        tipPerPerson.innerHTML = `$${calcTip.toFixed(2)}`;
+        totalTip.innerHTML = `$${((bill.value/numberOfPeople.value) + calcTip).toFixed(2)}`;
     }
+});
 
-
-    const calcTip = tip/numberOfPeople.value;
-
-    tipPerPerson.innerHTML = `$${calcTip.toFixed(2)}`;
-    totalTip.innerHTML = `$${((bill.value/numberOfPeople.value) + calcTip).toFixed(2)}`;
+numberOfPeople.addEventListener('input', function(){
+    if(numberOfPeople.value > '0') {
+        numberOfPeople.style.border = `none`;
+        error.style.opacity = 0;
+    }
 });
 
 
@@ -81,6 +84,12 @@ resetBtn.addEventListener('click', function(e) {
     e.preventDefault;
     
     bill.value = '';
+
+    percent.forEach (perc => {
+        if(perc.classList.contains('perc_active'))  perc.classList.remove('perc_active');
+    });
+
+    customPercentage.value = '';
 
     numberOfPeople.value = '';
 

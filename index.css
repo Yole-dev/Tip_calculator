@@ -6,8 +6,9 @@
     --grayish-cyan: hsl(184, 14%, 56%);
     --light-grayish-cyan: hsl(185, 41%, 84%);
     --very-light-grayish-cyan: hsl(189, 41%, 97%);
-    --bold-font: 1.5rem;
-    --bold-weight: 700;
+    --mobile-font-size: 1.1rem;
+    --mobile-font-weight: 700;
+    --desktop-font-size: 1.5rem;
  }
 
 * {
@@ -25,14 +26,21 @@ input {
     border-radius: 0.2rem;
     text-align: right;
     padding: 0 1rem;
-    font-size: var(--bold-font);
-    font-weight: var(--bold-weight);
+    font-size: var(--mobile-font-size);
+    font-weight: var(--mobile-font-weight);
     color: var(--very-dark-cyan);
     font-family: monospace;
 }
 
 input:focus {
     outline: solid 1px var(--cyan);
+}
+
+.icon {
+    z-index: 99;
+    position: relative;
+    top: 2rem;
+    left: 1rem;
 }
 
 
@@ -44,13 +52,10 @@ body {
     font-family: monospace;
 }
 
-body > h2 {
-    text-align: center;
+body > img {
+    align-self: center;
     padding-bottom: 1.5rem;
-    color: var(--dark-grayish-cyan);
-    line-height: 1.7;
-    letter-spacing: 0.5rem;
-    text-transform: uppercase;
+    width: 20%;
 }
 
 
@@ -61,10 +66,11 @@ main {
     gap: 1.5rem;
     background: white;
     padding: 1.7rem 1.5rem;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
     height: auto;
     width: 100%;
+    margin-top: 2rem;
 }
 
 main h3 {
@@ -84,6 +90,10 @@ main > section > section {
     gap: 0.8rem;
 }
 
+.bill_container {
+    margin-top: -0.8rem;
+}
+
 .percentage {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -93,8 +103,8 @@ main > section > section {
 .perc {
     text-align: center;
     background: var(--very-dark-cyan);
-    font-size: var(--bold-font);
-    font-weight: var(--bold-weight);
+    font-size: var(--mobile-font-size);
+    font-weight: var(--mobile-font-weight);
     color: white;
     border-radius: 0.2rem;
     padding: 0.5rem 0;
@@ -106,7 +116,7 @@ main > section > section {
 }
 
 .custom_perc {
-    padding: 1.5rem 1rem;
+    padding: 1rem 1rem;
     text-align: center;
 }
 
@@ -120,6 +130,14 @@ main > section:first-of-type section:last-of-type > div:first-of-type h3 {
     right: 2rem;
     opacity: 0;
 }
+
+.people {
+    margin-top: -0.5rem;
+}
+
+.people_container > .icon {
+    top: 1.5rem;
+} 
 
 .results {
     background: var(--very-dark-cyan);
@@ -147,16 +165,16 @@ main > section:first-of-type section:last-of-type > div:first-of-type h3 {
 }
 
 .results > div > div {
-    font-size: var(--bold-font);
-    font-weight: var(--bold-weight);
+    font-size: var(--mobile-font-size);
+    font-weight: var(--mobile-font-weight);
     color: var(--cyan);
 }
 
 button {
     border: none;
     font-family: monospace;
-    font-size: var(--bold-font);
-    font-weight: var(--bold-weight);
+    font-size: var(--mobile-font-size);
+    font-weight: var(--mobile-font-weight);
     text-transform: uppercase;
     background: var(--cyan);
     color: var(--very-dark-cyan);
@@ -165,11 +183,20 @@ button {
 }
 
 @media screen and (min-width: 600px) {
+
+    input {
+        font-size: var(--desktop-font-size);
+    }
+
     body {
         justify-content: center;
         align-items: center;
         height: 100vh;
         padding-top: 0;
+    }
+
+    body > img {
+        width: 5%;
     }
 
     main {
@@ -178,10 +205,15 @@ button {
         align-self: center;
         flex-direction: row;
         align-items: end;
+        margin-top: 0;
     }
 
     .percentage {
      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .perc {
+        font-size: var(--desktop-font-size);
     }
 
     .results {
@@ -192,5 +224,9 @@ button {
     .results > button {
         position: relative;
         top: 6rem;
+    }
+
+    button {
+        font-size: var(--desktop-font-size);
     }
 }
